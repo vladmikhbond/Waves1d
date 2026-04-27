@@ -1,0 +1,21 @@
+{
+  "name": "vawests",
+  "version": "1.0.0",
+  "description": "TypeScript application",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "bundle": "esbuild src/main.ts --bundle --outfile=dist/bundle.js --format=esm --target=es2020",
+    "start": "node dist/main.js",
+    "dev": "ts-node src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.28.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
