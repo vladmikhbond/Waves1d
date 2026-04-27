@@ -11,16 +11,16 @@ export default class Space {
     nodes: Node[] = []
 
     constructor(n: number) {
+        this.nodes = new Array(n);
         for (let i = 0; i < n; i++) {
-            let node = new Node();
-            this.nodes.push(node);
+            this.nodes[i] = new Node();
         }
     }
 
     step() {
         for (let i = 1; i < this.nodes.length - 1; i++) {
-            let dz = this.nodes[i-1].z + this.nodes[i+1].z  - 2 * this.nodes[i].z;
-            let a = this.k * dz / this.nodes[i].m;
+            let f = this.nodes[i-1].z + this.nodes[i+1].z  - 2 * this.nodes[i].z;
+            let a = this.k * f / this.nodes[i].m;
             this.nodes[i].v += a;
         }
         for (let i = 1; i < this.nodes.length - 1; i++) {
