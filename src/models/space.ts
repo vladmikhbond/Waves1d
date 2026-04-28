@@ -1,16 +1,16 @@
 class Node {
     z: number = 0
-    m: number = 10
     v: number  = 0
 
 }
 
 export default class Space {
-    k = 0.5
+    k = 0
+    m = 0
     time = 0
     nodes: Node[] = []
 
-    constructor(n: number) {
+    constructor(n: number, k: number, m: number) {
         this.nodes = new Array(n);
         for (let i = 0; i < n; i++) {
             this.nodes[i] = new Node();
@@ -20,7 +20,7 @@ export default class Space {
     step() {
         for (let i = 1; i < this.nodes.length - 1; i++) {
             let f = this.nodes[i-1].z + this.nodes[i+1].z  - 2 * this.nodes[i].z;
-            let a = this.k * f / this.nodes[i].m;
+            let a = this.k * f / this.m;
             this.nodes[i].v += a;
         }
         for (let i = 1; i < this.nodes.length - 1; i++) {

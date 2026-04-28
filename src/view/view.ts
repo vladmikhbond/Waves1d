@@ -18,9 +18,10 @@ export function show(space: Space, n_vis: number ) {
     // coords
     ctx.beginPath();
     ctx.strokeStyle = "gray"
-    ctx.moveTo(0, b); ctx.lineTo(canvas.width, b);    // Ox
-    // ctx.moveTo(canvas.width / 2, 0); ctx.lineTo(canvas.width / 2, canvas.height);  // Oy
+    // ctx.moveTo(0, b); ctx.lineTo(canvas.width, b);    // Ox
+    ctx.moveTo(canvas.width / 2, 0); ctx.lineTo(canvas.width / 2, canvas.height);  // Oy
     ctx.stroke();
+
     // vawes
     ctx.beginPath();
     ctx.strokeStyle = "red"
@@ -29,18 +30,20 @@ export function show(space: Space, n_vis: number ) {
         let node = space.nodes[i]
         let x = (i - (n - n_vis) / 2) * kx
         let y = -node.z * ky + b
-        let w = node.m * node.v * node.v / 2;
-        let u =  node.m * node.z * node.z / 2;
+        let w = space.m * node.v * node.v / 2;
+        let u =  space.m * node.z * node.z / 2;
         let e = w + u;
         
         if (node.z > 0) {
             console.log(i, w, u, e)
         }
 
-        // ctx.lineTo(x, y);
-        // ctx.strokeRect(x, y, 1, 1);
-        ctx.moveTo(x, canvas.height);
-        ctx.lineTo(x, -e * ky + canvas.height);
+        ctx.lineTo(x, y);
+
+        ctx.strokeRect(x, y, 1, 1);
+        
+        // ctx.moveTo(x, canvas.height);
+        // ctx.lineTo(x, -e * ky + canvas.height);
         
 
     }
