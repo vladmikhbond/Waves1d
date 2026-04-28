@@ -2,6 +2,10 @@ class Node {
     z: number = 0
     v: number  = 0
 
+    constructor(z: number, v: number) {
+        this.z = z; 
+        this.v = v;
+    }
 }
 
 export default class Space {
@@ -11,9 +15,12 @@ export default class Space {
     nodes: Node[] = []
 
     constructor(n: number, k: number, m: number) {
+        this.k = k;
+        this.m = m;
+
         this.nodes = new Array(n);
         for (let i = 0; i < n; i++) {
-            this.nodes[i] = new Node();
+            this.nodes[i] = new Node(0, 0);
         }
     }
 

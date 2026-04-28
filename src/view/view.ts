@@ -1,4 +1,4 @@
-import Space from "../models/space";
+import Space from "../models/space.js";
 
 const canvas = (document.getElementById("canvas") as HTMLCanvasElement)!;
 const time = (document.getElementById("time") as HTMLSpanElement)!;
@@ -31,19 +31,18 @@ export function show(space: Space, n_vis: number ) {
         let x = (i - (n - n_vis) / 2) * kx
         let y = -node.z * ky + b
         let w = space.m * node.v * node.v / 2;
-        let u =  space.m * node.z * node.z / 2;
+        let dzL = node.z - space.nodes[i-1].z;
+        let dzR = space.nodes[i+1].z - node.z;
+        let u =  space.m * (dzL * dzL + dzR * dzR) / 4 ;
         let e = w + u;
-        
-        if (node.z > 0) {
-            console.log(i, w, u, e)
-        }
 
-        ctx.lineTo(x, y);
+        // x, y
+        // ctx.lineTo(x, y);
+        // ctx.strokeRect(x, y, 1, 1);
 
-        ctx.strokeRect(x, y, 1, 1);
-        
-        // ctx.moveTo(x, canvas.height);
-        // ctx.lineTo(x, -e * ky + canvas.height);
+        // x, e
+        ctx.moveTo(x, canvas.height);
+        ctx.lineTo(x, -e * ky + canvas.height);
         
 
     }

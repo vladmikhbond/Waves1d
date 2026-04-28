@@ -1,5 +1,5 @@
-import Space from "./models/space";
-import { show } from "./view/view";
+import Space from "./models/space.js";
+import { show } from "./view/view.js";
 
 const k = 0.5
 const m = 100;
@@ -16,7 +16,7 @@ let space = new Space(n, k, m);
 
 // init state
 space.nodes[mid].z = 1
-let timer = 0;
+let timer: ReturnType<typeof setInterval> | 0 = 0;
 
 
 // (document.getElementById("canvas"))!.addEventListener("click", () => {
