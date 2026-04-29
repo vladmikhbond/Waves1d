@@ -1,10 +1,11 @@
 {
   "name": "waves1d",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "TypeScript application",
   "main": "main.js",
+  
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "npx live-server . --port=5500",
     "dev": "ts-node src/main.ts"
   },

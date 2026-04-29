@@ -1,27 +1,23 @@
 import Space from "./models/space.js";
 import { show } from "./view/view.js";
 
-const k = 0.5
-const m = 100;
+let k = +(document.getElementById("k") as HTMLInputElement).value;
+let m = +(document.getElementById("m") as HTMLInputElement).value;
+let period = +(document.getElementById("p") as HTMLInputElement).value;
+
 const n = 1000;      // total area
 const n_vis = 200;  // visible middle area
-const period = 50    // perod in msec
-
-const params = (document.getElementById("params") as HTMLSpanElement)!;
-params.innerHTML = `${n}/${n_vis}`
-
 const mid = n / 2 | 0, beg = ( n - n_vis) / 2 | 0, end = beg + n_vis;
 
-let space = new Space(n, k, m);
+// show params
+document.getElementById("params")!.innerHTML = `${n}/${n_vis} k=${k}   m=${m}   period=${period} msec`
 
 // init state
+let space = new Space(n, k, m);
 space.nodes[mid].z = 1
 let timer: ReturnType<typeof setInterval> | 0 = 0;
 
-
-// (document.getElementById("canvas"))!.addEventListener("click", () => {
-//     if (timer) stop(); else run();
-// });
+// =========================== controller ===============================
 
 document.addEventListener("keydown", (e: KeyboardEvent) => {
     if (e.key == "Enter") {

@@ -25,26 +25,24 @@ export function show(space: Space, n_vis: number ) {
     // vawes
     ctx.beginPath();
     ctx.strokeStyle = "red"
-    // ctx.moveTo(0, -space.nodes[0].z * ky + b);
+    ctx.moveTo(0, -space.nodes[0].z * ky + b);
     for (let i = (n - n_vis) / 2 ; i < (n + n_vis) / 2; i++) {
         let node = space.nodes[i]
         let x = (i - (n - n_vis) / 2) * kx
         let y = -node.z * ky + b
-        let w = space.m * node.v * node.v / 2;
-        let dzL = node.z - space.nodes[i-1].z;
-        let dzR = space.nodes[i+1].z - node.z;
-        let u =  space.m * (dzL * dzL + dzR * dzR) / 4 ;
-        let e = w + u;
-
+        
         // x, y
-        // ctx.lineTo(x, y);
-        // ctx.strokeRect(x, y, 1, 1);
+        ctx.lineTo(x, y);
+        ctx.strokeRect(x, y, 1, 1);
 
         // x, e
-        ctx.moveTo(x, canvas.height);
-        ctx.lineTo(x, -e * ky + canvas.height);
-        
-
+        // let w = space.m * node.v * node.v / 2;
+        // let dzL = node.z - space.nodes[i-1].z;
+        // let dzR = space.nodes[i+1].z - node.z;
+        // let u =  space.m * (dzL * dzL + dzR * dzR) / 4 ;
+        // let e = w + u;
+        // ctx.moveTo(x, canvas.height);
+        // ctx.lineTo(x, -e * ky + canvas.height);
     }
     ctx.stroke();
     time.innerHTML = space.time.toString()
