@@ -25,14 +25,17 @@ export default class Space {
     }
 
     step() {
+        
         for (let i = 1; i < this.nodes.length - 1; i++) {
-            let f = this.nodes[i-1].z + this.nodes[i+1].z  - 2 * this.nodes[i].z;
-            let a = this.k * f / this.m;
+            let dz = this.nodes[i-1].z + this.nodes[i+1].z  - 2 * this.nodes[i].z;
+            let a = this.k * dz / this.m;
             this.nodes[i].v += a;
         }
         for (let i = 1; i < this.nodes.length - 1; i++) {
             this.nodes[i].z += this.nodes[i].v;
         }
+// this.nodes[500 - 1].z = 0;
+// this.nodes[500 + 1].z = 0;
         this.time++;
     }
 
@@ -45,5 +48,12 @@ export default class Space {
         for (let i = 0; i < count; i++) {
             this.nodes[pos + i].z = this.nodes[pos - i].z = Math.cos(Math.PI * i/(2*count));
         }
+    }
+
+    actor_harm(pos: number, t1: number, t2: number) {
+        var delta = (this.time - t1) / (t2 - t1);
+        
+        this.nodes[pos].z = Math.sin(2 * Math.PI * delta);
+        
     }
 }

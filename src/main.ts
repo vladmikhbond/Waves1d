@@ -42,18 +42,20 @@ document.getElementById("runButton")!.addEventListener("click", () => {
 document.addEventListener("keydown", (e: KeyboardEvent) => {
     if (e.key == "1") {
         stop();
-        space.step();
-        show(space, n_vis);
+        step();
     }
 });
 
 function step() {
     // if (space.time == 1) space.actor_1(mid);
-    if (space.time % 100 == 0) space.actor_cos(mid);
+    // if (2 <= space.time && space.time < 65) space.actor_harm(mid, 2, 65);
+     space.actor_harm(mid, 2, 20);
 
-    space.step();    
+    space.step();  
+      
     show(space, n_vis);
 
+    // stop when limit
     if (space.nodes[1].z > 0) stop(); 
 }
 
