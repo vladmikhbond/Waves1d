@@ -35,4 +35,15 @@ export default class Space {
         }
         this.time++;
     }
+
+    actor_1(pos: number) {
+        this.nodes[pos].z =  1;
+    }
+
+    actor_cos(pos: number) {
+        const count = 10;
+        for (let i = 0; i < count; i++) {
+            this.nodes[pos + i].z = this.nodes[pos - i].z = Math.cos(Math.PI * i/(2*count));
+        }
+    }
 }

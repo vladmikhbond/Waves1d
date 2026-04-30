@@ -11,41 +11,51 @@ let period: number;
 let space: Space;
 let timer: ReturnType<typeof setInterval> | 0;
 
-function readParams() {
-    k = +(document.getElementById("k") as HTMLInputElement)!.value;
-    m = +(document.getElementById("m") as HTMLInputElement)!.value;
-    period = +(document.getElementById("p") as HTMLInputElement)!.value;
-    space = new Space(n, k, m);
-    stop();
-    // config
-    space.nodes[mid].z =  1;
-    // const count = 8
-    // for (let i = 0; i < count; i++) {
-    //     space.nodes[mid + i].z = space.nodes[mid - i].z = Math.cos(Math.PI * i/(2*count));
-    // }
 
-}
-readParams();
+space = createSpace();
+show(space, n_vis);
 
 // show params
 document.getElementById("params")!.innerHTML = `${n}/${n_vis}`
 
+
 // =========================== controller ===============================
 
-document.getElementById("initButton")!.addEventListener("click", () => {
-    readParams();
+function createSpace() {
+    k = +(document.getElementById("k") as HTMLInputElement)!.value;
+    m = +(document.getElementById("m") as HTMLInputElement)!.value;
+    period = +(document.getElementById("p") as HTMLInputElement)!.value;
+    stop();
+    return new Space(n, k, m);
+}
+
+document.getElementById("resetButton")!.addEventListener("click", () => {
+    space = createSpace();
     show(space, n_vis);
 });
 
+document.getElementById("runButton")!.addEventListener("click", () => {
+    if (timer) stop(); 
+    else run();
+});
+
 document.addEventListener("keydown", (e: KeyboardEvent) => {
-    if (e.key == "!") {
-        if (timer) stop(); else run();
-    } else if (e.key == "1") {
+    if (e.key == "1") {
         stop();
         space.step();
         show(space, n_vis);
     }
 });
+
+function step() {
+    // if (space.time == 1) space.actor_1(mid);
+    if (space.time % 100 == 0) space.actor_cos(mid);
+
+    space.step();    
+    show(space, n_vis);
+
+    if (space.nodes[1].z > 0) stop(); 
+}
 
 function stop() {
     if (timer) {
@@ -56,11 +66,7 @@ function stop() {
 
 function run() {
     if (timer) return;
-    timer = setInterval(() => {
-        space.step();
-        show(space, n_vis);
-        if (space.nodes[1].z > 0) {
-            stop(); 
-        }
+    timer = setInterval(() => { 
+        step();
     }, period);
 }
