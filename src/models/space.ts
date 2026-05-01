@@ -8,11 +8,35 @@ class Node {
     }
 }
 
+class Oscil {
+    a: number = 0    
+    t: number = 0
+    x: number = 0
+    
+    constructor(x: number, a: number) {
+        this.x = x;
+        this.a = a;
+    }
+    
+    zz(): Iterable<number> {
+        const self = this;
+        return {
+            *[Symbol.iterator]() {
+                self.t += 0.1;
+                yield Math.sin(self.t) * self.a;
+            }
+        };
+    }
+}
+
+
 export default class Space {
     k = 0
     m = 0
     time = 0
     nodes: Node[] = []
+    oscils: Oscil[] = []
+
 
     constructor(n: number, k: number, m: number) {
         this.k = k;
@@ -22,6 +46,9 @@ export default class Space {
         for (let i = 0; i < n; i++) {
             this.nodes[i] = new Node(0, 0);
         }
+        
+        // осцилятори
+        this.oscils.push(new Oscil(500, 0.5));
     }
 
     step() {
@@ -34,26 +61,14 @@ export default class Space {
         for (let i = 1; i < this.nodes.length - 1; i++) {
             this.nodes[i].z += this.nodes[i].v;
         }
-// this.nodes[500 - 1].z = 0;
-// this.nodes[500 + 1].z = 0;
+
+        // осцилятори
+        let x: number = this.oscils[0].x;
+        let iter = this.oscils[0].zz()[Symbol.iterator]();
+        this.nodes[x].z = iter.next().value;;
+
+
         this.time++;
     }
 
-    actor_1(pos: number) {
-        this.nodes[pos].z =  1;
-    }
-
-    actor_cos(pos: number) {
-        const count = 10;
-        for (let i = 0; i < count; i++) {
-            this.nodes[pos + i].z = this.nodes[pos - i].z = Math.cos(Math.PI * i/(2*count));
-        }
-    }
-
-    actor_harm(pos: number, t1: number, t2: number) {
-        var delta = (this.time - t1) / (t2 - t1);
-        
-        this.nodes[pos].z = Math.sin(2 * Math.PI * delta);
-        
-    }
 }

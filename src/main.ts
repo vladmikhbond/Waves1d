@@ -47,9 +47,6 @@ document.addEventListener("keydown", (e: KeyboardEvent) => {
 });
 
 function step() {
-    // if (space.time == 1) space.actor_1(mid);
-    // if (2 <= space.time && space.time < 65) space.actor_harm(mid, 2, 65);
-     space.actor_harm(mid, 2, 20);
 
     space.step();  
       
