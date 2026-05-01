@@ -7,6 +7,7 @@ const mid = n / 2 | 0, beg = ( n - n_vis) / 2 | 0, end = beg + n_vis;
 
 let k: number;
 let m: number;
+let l: number;
 let period: number;
 let space: Space;
 let timer: ReturnType<typeof setInterval> | 0;
@@ -19,15 +20,7 @@ show(space, n_vis);
 document.getElementById("params")!.innerHTML = `${n}/${n_vis}`
 
 
-// =========================== controller ===============================
-
-function createSpace() {
-    k = +(document.getElementById("k") as HTMLInputElement)!.value;
-    m = +(document.getElementById("m") as HTMLInputElement)!.value;
-    period = +(document.getElementById("p") as HTMLInputElement)!.value;
-    stop();
-    return new Space(n, k, m);
-}
+// =========================== handlers ===============================
 
 document.getElementById("resetButton")!.addEventListener("click", () => {
     space = createSpace();
@@ -45,6 +38,17 @@ document.addEventListener("keydown", (e: KeyboardEvent) => {
         step();
     }
 });
+
+// -----------------------------------------------------------------------
+
+function createSpace() {
+    k = +(document.getElementById("k") as HTMLInputElement)!.value;
+    m = +(document.getElementById("m") as HTMLInputElement)!.value;
+    l = +(document.getElementById("l") as HTMLInputElement)!.value;
+    period = +(document.getElementById("p") as HTMLInputElement)!.value;
+    stop();
+    return new Space(n, k, m, l);
+}
 
 function step() {
 
