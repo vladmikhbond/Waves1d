@@ -1,11 +1,6 @@
 class Node {
     z: number = 0
     v: number  = 0
-
-    constructor(z: number, v: number) {
-        this.z = z; 
-        this.v = v;
-    }
 }
 
 class Oscillator {
@@ -27,7 +22,7 @@ class Oscillator {
 
 
 export default class Space {
-    k = 0  // жорсткость
+    k = 0  // жорсткість
     m = 0  // маса
     time = 0  // такти часу
     loss = 0.99  // коеф. втрат
@@ -42,7 +37,7 @@ export default class Space {
 
         this.nodes = new Array(n);
         for (let i = 0; i < n; i++) {
-            this.nodes[i] = new Node(0, 0);
+            this.nodes[i] = new Node();
         }
         
         // осцилятори
