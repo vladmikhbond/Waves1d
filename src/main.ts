@@ -2,7 +2,7 @@ import Space from "./models/space.js";
 import { show } from "./view/view.js";
 
 const n = 1000;      // total area
-const n_vis = 200;  // visible middle area
+const n_vis = 1000;  // visible middle area
 const mid = n / 2 | 0, beg = ( n - n_vis) / 2 | 0, end = beg + n_vis;
 
 let k: number;
@@ -33,7 +33,7 @@ document.getElementById("runButton")!.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (e: KeyboardEvent) => {
-    if (e.key == "1") {
+    if (e.key == " ") {
         stop();
         step();
     }
@@ -57,7 +57,7 @@ function step() {
     show(space, n_vis);
 
     // stop when limit
-    if (space.nodes[1].z > 0) stop(); 
+    // if (space.nodes[1].z > 0) stop(); 
 }
 
 function stop() {

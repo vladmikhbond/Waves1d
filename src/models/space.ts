@@ -1,6 +1,7 @@
 class Node {
-    z: number = 0
-    v: number  = 0
+    z = 0
+    v = 0
+    l = 0
 }
 
 class Oscillator {
@@ -25,7 +26,7 @@ export default class Space {
     k = 0  // жорсткість
     m = 0  // маса
     time = 0  // такти часу
-    loss = 0.99  // коеф. втрат
+    loss = 0.0  // коеф. втрат
     nodes: Node[] = []
     oscillators: Oscillator[] = []
 
@@ -34,18 +35,20 @@ export default class Space {
         this.k = k;
         this.m = m;
         this.loss = l;
-
+        // вузли
         this.nodes = new Array(n);
         for (let i = 0; i < n; i++) {
             this.nodes[i] = new Node();
         }
+        // поглиначі
+        const start = 500, len = 200, d = 0.1/len;
+        for (let i = 0; i < len; i++) {
+            this.nodes[start + i].l = d * i;
+        }
         
+
         // осцилятори
-        this.oscillators.push(new Oscillator(450, 1));
-        this.oscillators.push(new Oscillator(451, 1));
-        this.oscillators.push(new Oscillator(452, 1));
-        this.oscillators.push(new Oscillator(453, 1));
-        this.oscillators.push(new Oscillator(454, 1));
+        this.oscillators.push(new Oscillator(1, 1));
     }
 
     step() {
@@ -55,7 +58,8 @@ export default class Space {
             let dz = this.nodes[i-1].z + this.nodes[i+1].z  - 2 * this.nodes[i].z;
             let a = (this.k / this.m) * dz;
             this.nodes[i].v += a;
-            this.nodes[i].v *= this.loss;
+            // втрати
+            this.nodes[i].v *= (1 - this.nodes[i].l);
         }
         // амплітуди
         for (let i = 1; i < this.nodes.length - 1; i++) {
