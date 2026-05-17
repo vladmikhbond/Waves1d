@@ -26,11 +26,11 @@ export function show(space: Space, n_vis: number ) {
     // vawes
     ctx.beginPath();
     ctx.strokeStyle = "red"
-    ctx.moveTo(0, -space.nodes[0].z * ky + b);
+    ctx.moveTo(0, -space.nodes[0].x * ky + b);
     for (let i = (n - n_vis) / 2 ; i < (n + n_vis) / 2; i++) {
         let node = space.nodes[i]
         let x = (i - (n - n_vis) / 2) * kx
-        let y = -node.z * ky + b
+        let y = -node.x * ky + b
         
         // x, y
         ctx.lineTo(x, y);

@@ -1,5 +1,6 @@
 import Space from "./models/space.js";
 import { show } from "./view/view.js";
+import {Oscillator} from "./models/space.js"
 
 const n = 1000;      // total area
 const n_vis = 1000;  // visible middle area
@@ -14,6 +15,10 @@ let timer: ReturnType<typeof setInterval> | 0;
 
 
 space = createSpace();
+
+        // осцилятори
+        space.oscillators.push(new Oscillator(1, 1));
+
 show(space, n_vis);
 
 // show params
@@ -47,7 +52,7 @@ function createSpace() {
     l = +(document.getElementById("l") as HTMLInputElement)!.value;
     period = +(document.getElementById("p") as HTMLInputElement)!.value;
     stop();
-    return new Space(n, k, m, l);
+    return new Space(n, k/m, l);
 }
 
 function step() {
